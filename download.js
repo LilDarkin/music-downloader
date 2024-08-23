@@ -3,9 +3,9 @@ require('dotenv').config();
 const axios = require('axios');
 const { exec } = require('youtube-dl-exec');
 const fs = require('fs');
-const { performance } = require('perf_hooks'); // Import performance API
+const { performance } = require('perf_hooks');
 
-// Replace with your Spotify credentials
+// Spotify credentials
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
@@ -45,14 +45,14 @@ function downloadTrack(track) {
     }
 
     return new Promise((resolve, reject) => {
-        const startTime = performance.now(); // Record start time
+        const startTime = performance.now();
         exec(`ytsearch1:${query}`, {
             output: `${outputDirectory}/${track.name}.mp3`,
             extractAudio: true,
             audioFormat: 'mp3',
         }).then(output => {
-            const endTime = performance.now(); // Record end time
-            const duration = ((endTime - startTime) / 1000).toFixed(2); // Duration in seconds
+            const endTime = performance.now();
+            const duration = ((endTime - startTime) / 1000).toFixed(2);
             console.log(`Download complete: ${query}`);
             console.log(`Time taken: ${duration} seconds`);
             resolve();
@@ -64,23 +64,23 @@ function downloadTrack(track) {
 }
 
 (async () => {
-    const playlistId = process.argv[2]; // Get playlist_id from command-line argument
+    const playlistId = process.argv[2];
     if (!playlistId) {
         console.error('Please provide a playlist_id as a command-line argument.');
         process.exit(1);
     }
 
-    const totalStartTime = performance.now(); // Record total start time
+    const totalStartTime = performance.now();
 
     try {
         const tracks = await getPlaylistTracks(playlistId);
 
         for (const track of tracks) {
-            await downloadTrack(track); // Download one by one
+            await downloadTrack(track);
         }
 
-        const totalEndTime = performance.now(); // Record total end time
-        const totalDuration = ((totalEndTime - totalStartTime) / 1000).toFixed(2); // Total duration in seconds
+        const totalEndTime = performance.now();
+        const totalDuration = ((totalEndTime - totalStartTime) / 1000).toFixed(2);
         console.log('All tracks downloaded!');
         console.log(`Total time taken: ${totalDuration} seconds`);
     } catch (error) {
