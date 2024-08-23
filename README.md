@@ -35,10 +35,10 @@ CLIENT_SECRET=your_spotify_client_secret
 Replace your_spotify_client_id and your_spotify_client_secret with your actual Spotify credentials.
 
 ## Usage
-Run the script using Node.js and provide the Spotify playlist ID as a command-line argument:
+Run the code using Node.js and provide the Spotify playlist ID as a command-line argument:
 
 ```bash
-node script.js <playlist_id>
+node download.js <playlist_id>
 ```
 Replace <playlist_id> with the actual ID of the Spotify playlist you want to download.
 
